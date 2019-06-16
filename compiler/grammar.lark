@@ -1,17 +1,27 @@
 
 
-start: (NEWLINE | number NEWLINE)*
+start: _NEWLINE* (stmt _NEWLINE*)*
+?stmt: (number | fn) _NEWLINE?
+suite: stmt | _NEWLINE _INDENT _NEWLINE? stmt+ _DEDENT _NEWLINE?
 
 
 number: NUMBER | FLOAT_NUMBER
+
+fn: "def" ident parameters ":" suite
+parameters: "(" [ident] ("," ident)* ")"
+ident: IDENTIFIER
+
+
 
 NUMBER: /0|[1-9]\d*/i
 FLOAT_NUMBER: /((\d+\.\d*|\.\d+)(e[-+]?\d+)?|\d+(e[-+]?\d+))/i
 STRING : /[ubf]?r?("(?!"").*?(?<!\\)(\\\\)*?"|'(?!'').*?(?<!\\)(\\\\)*?')/i
 IDENTIFIER: /[a-zA-Z_]\w*/
+
+_NEWLINE: ( /\r?\n[\t ]*/ | COMMENT )+
 COMMENT: /\/\/[^\n]*/
 
-NEWLINE: /\n+/
-// %ignore /[\t \f\n]+/  // WS
-// %ignore /\\[\t \f\n]*\r?\n/   // LINE_CONT
+%ignore /[\t \f]+/  // WS
+%ignore /\\[\t \f]*\r?\n/   // LINE_CONT
 %ignore COMMENT
+%declare _INDENT _DEDENT

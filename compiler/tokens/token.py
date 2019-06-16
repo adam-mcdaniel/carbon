@@ -2,7 +2,7 @@
 
 class Token:
     def __init__(self, *args, **kwargs):
-        self.setup(*args, **kwargs)
+        self.setup(*list(map(str, args[0])), **kwargs)
 
     def setup(self, *args, **kwargs):
         pass

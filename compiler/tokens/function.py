@@ -1,6 +1,10 @@
-from .token import Token
+from . import Token, MACHINE_NAME
 
 
 class Function(Token):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def setup(self, *args):
+        self.statements = args
+    
+    def parse(self):
+        newline = '\n'
+        return f"{MACHINE_NAME}.push([](Machine& {MACHINE_NAME} {{{newline.join(self.statements)}}});"

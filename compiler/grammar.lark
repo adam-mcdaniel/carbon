@@ -1,0 +1,17 @@
+
+
+start: (NEWLINE | number NEWLINE)*
+
+
+number: NUMBER | FLOAT_NUMBER
+
+NUMBER: /0|[1-9]\d*/i
+FLOAT_NUMBER: /((\d+\.\d*|\.\d+)(e[-+]?\d+)?|\d+(e[-+]?\d+))/i
+STRING : /[ubf]?r?("(?!"").*?(?<!\\)(\\\\)*?"|'(?!'').*?(?<!\\)(\\\\)*?')/i
+IDENTIFIER: /[a-zA-Z_]\w*/
+COMMENT: /\/\/[^\n]*/
+
+NEWLINE: /\n+/
+// %ignore /[\t \f\n]+/  // WS
+// %ignore /\\[\t \f\n]*\r?\n/   // LINE_CONT
+%ignore COMMENT

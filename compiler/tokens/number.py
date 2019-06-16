@@ -2,6 +2,8 @@ from .token import Token
 
 
 class Number(Token):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def setup(self, *args, **kwargs):
+        self.value = str(*args[0])
 
+    def parse(self):
+        return "NUM " + str(self.value)

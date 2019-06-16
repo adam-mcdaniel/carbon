@@ -1,6 +1,13 @@
 
+from parser import parse
 
-from tokens import *
 
+print(
+    parse('''
+1
 
-Function()
+1.1
+.2
+
+    
+'''))

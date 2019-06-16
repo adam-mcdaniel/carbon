@@ -1,15 +1,38 @@
 
 
 start: _NEWLINE* (stmt _NEWLINE*)*
-?stmt: (number | fn) _NEWLINE?
+?stmt: (fn | assign | retval | value) _NEWLINE?
 suite: stmt | _NEWLINE _INDENT _NEWLINE? stmt+ _DEDENT _NEWLINE?
 
 
-number: NUMBER | FLOAT_NUMBER
 
-fn: "def" ident parameters ":" suite
-parameters: "(" [ident] ("," ident)* ")"
+
+fn: "def" name parameters ":" suite
+assign: store "=" value
+retval: "return" (value ",")* value
+
+
+
+
+value: load
+    | string
+    | number
+    | call
+    | "(" value ")"
+
+call: value arguments
+arguments: "(" [value] ("," value)* ")"
+
+
+load: name
+store: name
+
+name: (ident "::")* ident
+string: STRING
+number: NUMBER | FLOAT_NUMBER
 ident: IDENTIFIER
+
+parameters: "(" [ident] ("," ident)* ")"
 
 
 

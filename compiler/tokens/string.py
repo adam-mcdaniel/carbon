@@ -1,6 +1,9 @@
 from .token import Token
+from .helper import push
 
 
 class String(Token):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def setup(self, *args, **kwargs):
+        self.value = str(args[0])
+
+    def parse(self): return push(f"Object::String({self.value})")

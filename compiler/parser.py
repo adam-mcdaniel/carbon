@@ -3,7 +3,6 @@ from tokens import *
 from lark import Lark, Transformer, UnexpectedCharacters, UnexpectedToken
 from lark.indenter import Indenter as LarkIndentor
 
-# __path__ = os.path.dirname(__file__)
 
 class Indenter(LarkIndentor):
     NL_type = '_NEWLINE'
@@ -18,10 +17,18 @@ class Parser(Transformer):
     fn = Function
     collection = List
     table = Table
+    store = Store
+    load = Load
     object = Object
     number = Number
     string = String
+    name = ScopedName
     ident = Identifier
+    value = Value
+    call = Call
+    arguments = Arguments
+    assign = Assign
+    retval = Return
     parameters = Parameters
     start = lambda s, tokens: "\n".join(map(str, tokens))
 
@@ -43,5 +50,9 @@ def parse(text):
     except UnexpectedCharacters as e:
         newline = "\n"
         print(f"Unexpected characters on line {e.line}, column {e.column}:\n\t'{str(e).split(newline)[2]}'\n\t {str(e).split(newline)[3]}")
+
+    except UnexpectedToken as e:
+        newline = "\n"
+        print(f'{str(e).split(newline)[0][:-1]}')
 
     return ""

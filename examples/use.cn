@@ -1,0 +1,4 @@
+use std::fs::File
+
+
+File("output.txt").write("Hello world!").close()

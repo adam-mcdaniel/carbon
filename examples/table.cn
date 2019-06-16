@@ -1,0 +1,9 @@
+
+
+
+table_1 = {
+    "testing": 5,
+    27: "STRING",
+}
+
+print(table_1)

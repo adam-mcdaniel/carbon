@@ -1,0 +1,13 @@
+
+x = "Testing"
+
+
+case x:
+    of "Testing":
+        print("How do you do?")
+    of "whoa":
+        print("How do you do?")
+    of "boo":
+        print(":(")
+    else:
+        print("I dont understand")

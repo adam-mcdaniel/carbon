@@ -1,0 +1,16 @@
+
+
+
+class Intuitive:
+    def __init__(this):
+        this.testing = "five"
+
+    def format(this):
+        return this.testing
+
+
+x = Intuitive()
+
+print(
+    x.format()
+)

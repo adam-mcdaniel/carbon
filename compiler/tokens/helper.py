@@ -2,13 +2,13 @@ from .constants import MACHINE_NAME
 
 
 def store(name):
-    return f'{MACHINE_NAME}.push(Object::Str({name})); {MACHINE_NAME}.store();'
+    return f'{str(name)};{MACHINE_NAME}.store();'
 
 def push(name):
-    return f'{MACHINE_NAME}.push({name});'
+    return f'{MACHINE_NAME}.push({str(name)});'
 
 def load(name):
-    return f'{MACHINE_NAME}.push(Object::Str({name})); {MACHINE_NAME}.load();'
+    return f'{str(name)};{MACHINE_NAME}.load();'
 
-def assign(name):
-    return f'{MACHINE_NAME}.push(Object::Str({name})); {MACHINE_NAME}.assign();'
+def assign():
+    return f'{MACHINE_NAME}.assign();'

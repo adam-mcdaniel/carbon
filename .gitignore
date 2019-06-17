@@ -1,5 +1,13 @@
+# Python / IDE
 **/__pycache__
 .vscode
+
+# CMake
 build
+
+# Artifacts of nuitka compiler
 *.build
 *.dist
+
+# Continuous integration
+CI

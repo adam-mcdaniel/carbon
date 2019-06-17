@@ -16,10 +16,14 @@ class Parser(Transformer):
     suite = Suite
     fn = Function
     collection = List
-    table = Table
     store = Store
+    index = Index
+    dot_index = DotIndex
+    assign_index = AssignIndex
     load = Load
     object = Object
+    object_suite = ObjectSuite
+    method_call = MethodCall
     number = Number
     string = String
     name = ScopedName
@@ -30,7 +34,9 @@ class Parser(Transformer):
     assign = Assign
     retval = Return
     parameters = Parameters
-    start = lambda s, tokens: "\n".join(map(str, tokens))
+    true = lambda a, b: "Object::Bool(true)"
+    false = lambda a, b: "Object::Bool(false)"
+    start = lambda _, tokens: "\n".join(map(str, tokens))
 
 kwargs = dict(postlex=Indenter())
 

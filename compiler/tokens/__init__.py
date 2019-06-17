@@ -3,13 +3,13 @@ from .helper import *
 from .token import *
 from .list import *
 from .number import *
-from .object import *
 from .string import *
-from .table import *
 from .suite import *
 from .identifier import *
 from .retval import *
 from .value import *
 from .assign import *
 from .call import *
+from .table import *
 from .function import *
+from .object import *

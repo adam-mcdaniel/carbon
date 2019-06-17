@@ -10,5 +10,5 @@ def push(name):
 def load(name):
     return f'{str(name)};{MACHINE_NAME}.load();'
 
-def assign(name):
+def assign():
     return f'{MACHINE_NAME}.assign();'

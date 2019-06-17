@@ -18,7 +18,10 @@ index: value "[" value "]"
      | value "." ident -> dot_index
 
 
+list: "[" (value ",")* [value] "]"
+
 value: load
+    | list
     | index
     | method_call
     | string

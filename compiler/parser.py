@@ -20,6 +20,7 @@ class Parser(Transformer):
     index = Index
     dot_index = DotIndex
     assign_index = AssignIndex
+    list = List
     load = Load
     object = Object
     object_suite = ObjectSuite

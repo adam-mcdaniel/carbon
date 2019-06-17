@@ -19,6 +19,18 @@ void print(Machine& carbon) {
 }
 
 
+void list(Machine& carbon) {
+	std::vector<std::shared_ptr<Object>> list;
+	auto length = carbon.pop()->get<double>().unwrap();
+
+	for (int i=0; i < length; i++) {
+		list.push_back(carbon.pop());
+	}
+
+	carbon.push(Object::List(list));
+}
+
+
 int main() {
 	auto carbon = Machine();
 	carbon.push(Object::Fn(table));
@@ -26,6 +38,9 @@ int main() {
 	carbon.store();
 	carbon.push(Object::Fn(print));
 	carbon.push(Object::String("print"));
+	carbon.store();
+	carbon.push(Object::Fn(list));
+	carbon.push(Object::String("list"));
 	carbon.store();
 	
 	carbon.push(Object::Fn([](Machine& carbon) {carbon.push(Object::String("Table"));;carbon.load();carbon.call();
@@ -44,6 +59,18 @@ carbon.push(Object::String("File"));;carbon.load();carbon.call();carbon.push(Obj
 carbon.push(Object::String("testing"));carbon.push(Object::String("f"));;carbon.load();carbon.push(Object::String("f"));;carbon.load();;
 carbon.push(Object::String("open"));;carbon.index();carbon.call();
 carbon.push(Object::String("f"));;carbon.load();carbon.push(Object::String("print"));;carbon.load();carbon.call();
+carbon.push(Object::String("f"));;carbon.load();
+carbon.push(Object::String("whoa"));
+carbon.push(Object::Number(3));
+carbon.push(Object::Number(2));
+carbon.push(Object::Number(8));
+carbon.push(Object::Number(7));
+carbon.push(Object::Number(6));
+carbon.push(Object::Number(5));carbon.push(Object::Number(4));carbon.push(Object::String("list"));;carbon.load(); carbon.call();
+carbon.push(Object::Number(1));
+carbon.push(Object::String("testing"));carbon.push(Object::Number(7));carbon.push(Object::String("list"));;carbon.load(); carbon.call();carbon.push(Object::String("list"));;carbon.store();
+carbon.push(Object::String("list"));;carbon.load();;
+carbon.push(Object::Number(2));;carbon.index();carbon.push(Object::String("print"));;carbon.load();carbon.call();
 	std::cout << carbon.format() << std::endl;
 }
 

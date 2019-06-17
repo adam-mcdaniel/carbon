@@ -14,6 +14,9 @@ File = std::fs::File
 f = File()
 f.open("testing")
 print(f)
+
+list = ["testing", 1, [5, 6, 7, 8], 2, 3, "whoa", f]
+print(list[2])
 ''')
 
 
@@ -38,6 +41,18 @@ void print(Machine& {MACHINE_NAME}) {{
 }}
 
 
+void list(Machine& {MACHINE_NAME}) {{
+	std::vector<std::shared_ptr<Object>> list;
+	auto length = {MACHINE_NAME}.pop()->get<double>().unwrap();
+
+	for (int i=0; i < length; i++) {{
+		list.push_back({MACHINE_NAME}.pop());
+	}}
+
+	{MACHINE_NAME}.push(Object::List(list));
+}}
+
+
 int main() {{
 	auto {MACHINE_NAME} = Machine();
 	{MACHINE_NAME}.push(Object::Fn(table));
@@ -45,6 +60,9 @@ int main() {{
 	{MACHINE_NAME}.store();
 	{MACHINE_NAME}.push(Object::Fn(print));
 	{MACHINE_NAME}.push(Object::String("print"));
+	{MACHINE_NAME}.store();
+	{MACHINE_NAME}.push(Object::Fn(list));
+	{MACHINE_NAME}.push(Object::String("list"));
 	{MACHINE_NAME}.store();
 	
 	{compiled_script}

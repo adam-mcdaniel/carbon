@@ -8,7 +8,7 @@ class std::fs::File:
 	def new(self):
 		self.filename = "IT WORKED"
 		return self
-	
+
 	def map(self):
 		self.filename = "mapped!"
 

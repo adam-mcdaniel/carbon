@@ -1,4 +1,4 @@
-from . import Token, Identifier
+from . import Token, Identifier, MACHINE_NAME
 from .helper import store, assign
 
 
@@ -8,4 +8,4 @@ class Assign(Token):
         self.value = args[1]
 
     def parse(self):
-        return self.value + self.name
+        return self.value + f"{MACHINE_NAME}.clone();"+ self.name

@@ -12,6 +12,7 @@ class Indenter(LarkIndentor):
     DEDENT_type = '_DEDENT'
     tab_len = 8
 
+
 class Parser(Transformer):
     suite = Suite
     fn = Function
@@ -35,9 +36,13 @@ class Parser(Transformer):
     assign = Assign
     retval = Return
     parameters = Parameters
-    true = lambda a, b: "Object::Bool(true)"
-    false = lambda a, b: "Object::Bool(false)"
-    start = lambda _, tokens: "\n".join(map(str, tokens))
+
+    def true(a, b): return "Object::Bool(true)"
+
+    def false(a, b): return "Object::Bool(false)"
+
+    def start(_, tokens): return "\n".join(map(str, tokens))
+
 
 kwargs = dict(postlex=Indenter())
 
@@ -51,12 +56,13 @@ def parse(text):
             lexer='standard',
             **kwargs
         ).parse(text)
-        
-        return Parser().transform(lexer)
+
+        return Parser().transform(lexer).replace(';;', ';').replace('\t', '').replace('\n\t')
 
     except UnexpectedCharacters as e:
         newline = "\n"
-        print(f"Unexpected characters on line {e.line}, column {e.column}:\n\t'{str(e).split(newline)[2]}'\n\t {str(e).split(newline)[3]}")
+        print(
+            f"Unexpected characters on line {e.line}, column {e.column}:\n\t'{str(e).split(newline)[2]}'\n\t {str(e).split(newline)[3]}")
 
     except UnexpectedToken as e:
         newline = "\n"

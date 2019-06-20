@@ -57,7 +57,7 @@ def parse(text):
             **kwargs
         ).parse(text)
 
-        return Parser().transform(lexer).replace(';;', ';').replace('\t', '').replace('\n', '').replace(';', ';\n\t')
+        return Parser().transform(lexer).replace(';;', ';').replace(';;', ';').replace('\t', '').replace('\n', '').replace(';', ';\n\t')
 
     except UnexpectedCharacters as e:
         newline = "\n"

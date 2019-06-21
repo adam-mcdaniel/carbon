@@ -38,6 +38,6 @@ class Object(Token):
 
         return str(Function([
             self.name,
-            Call([load(ScopedName(["Table"]))]),
+            Call([load(ScopedName(["std::Table"]))]),
             store(ScopedName(["self"]))
         ] + list(map(str, properties)) + [load(ScopedName(["self"]))]))

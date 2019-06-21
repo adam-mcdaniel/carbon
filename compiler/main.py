@@ -1,3 +1,6 @@
+
+print("BUILD MERGE REQUEST")
+
 from tokens import MACHINE_NAME
 from parser import parse
 

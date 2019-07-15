@@ -1,18 +1,21 @@
 
 
-start: _NEWLINE* (stmt _NEWLINE*)*
-?stmt: (object | fn | assign | retval | value) _NEWLINE?
-suite: stmt | _NEWLINE _INDENT _NEWLINE? stmt+ _DEDENT _NEWLINE?
-object_suite: stmt | _NEWLINE _INDENT _NEWLINE? fn+ _DEDENT _NEWLINE?
+start: stmt*
+?stmt: (value | object | fn | assign | retval)
+// suite: stmt | _NEWLINE _INDENT _NEWLINE? stmt+ _DEDENT _NEWLINE?
+suite: stmt | "{" stmt* "}"
+object_suite: "{" fn* "}"
 
 
 
 
-fn: "def" name parameters ":" suite
+fn: "fn" name parameters suite
+lambda_fn: "fn" parameters suite
+
 assign: store "=" value
       | index "=" value -> assign_index
 retval: "return" (value ",")* value
-object: "class" name ":" object_suite
+object: "class" name object_suite
 
 index: value "[" value "]"
      | value "." ident -> dot_index
@@ -20,7 +23,8 @@ index: value "[" value "]"
 
 list: "[" (value ",")* [value] "]"
 
-value: load
+value: lambda_fn
+    | load
     | list
     | index
     | method_call
@@ -53,10 +57,11 @@ FLOAT_NUMBER: /((\d+\.\d*|\.\d+)(e[-+]?\d+)?|\d+(e[-+]?\d+))/i
 STRING : /[ubf]?r?("(?!"").*?(?<!\\)(\\\\)*?"|'(?!'').*?(?<!\\)(\\\\)*?')/i
 IDENTIFIER: /[a-zA-Z_]\w*/
 
-_NEWLINE: ( /\r?\n[\t ]*/ | COMMENT )+
+// _NEWLINE: ( /\r?\n[\t ]*/ | COMMENT )+
 COMMENT: /#[^\n]*/
 
-%ignore /[\t \f]+/  // WS
+// %ignore /[\t \f]+/  // WS
+%ignore /[\t\n\r \f]+/  // WS
 %ignore /\\[\t \f]*\r?\n/   // LINE_CONT
 %ignore COMMENT
 %declare _INDENT _DEDENT

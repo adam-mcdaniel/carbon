@@ -1,16 +1,16 @@
 
 from tokens import *
 from lark import Lark, Transformer, UnexpectedCharacters, UnexpectedToken
-from lark.indenter import Indenter as LarkIndentor
+from lark.indenter import Indenter as LarkIndenter
 
 
-class Indenter(LarkIndentor):
-    NL_type = '_NEWLINE'
-    OPEN_PAREN_types = ['LPAR', 'LSQB', 'LBRACE']
-    CLOSE_PAREN_types = ['RPAR', 'RSQB', 'RBRACE']
-    INDENT_type = '_INDENT'
-    DEDENT_type = '_DEDENT'
-    tab_len = 8
+# class Indenter(LarkIndentor):
+#     NL_type = '_NEWLINE'
+#     OPEN_PAREN_types = ['LPAR', 'LSQB', 'LBRACE']
+#     CLOSE_PAREN_types = ['RPAR', 'RSQB', 'RBRACE']
+#     INDENT_type = '_INDENT'
+#     DEDENT_type = '_DEDENT'
+#     tab_len = 8
 
 class Parser(Transformer):
     suite = Suite
@@ -31,6 +31,7 @@ class Parser(Transformer):
     ident = Identifier
     value = Value
     call = Call
+    lambda_fn = LambdaFunction
     arguments = Arguments
     assign = Assign
     retval = Return
@@ -39,8 +40,8 @@ class Parser(Transformer):
     false = lambda a, b: "Object::Bool(false)"
     start = lambda _, tokens: "\n".join(map(str, tokens))
 
-kwargs = dict(postlex=Indenter())
-
+# kwargs = dict(postlex=Indenter())
+kwargs = {}
 
 def parse(text):
     try:

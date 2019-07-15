@@ -23,7 +23,7 @@ class Function(Token):
 
     def parse(self):
         newline = '\n'
-        result = push(f"Object::Fn([](Machine& {MACHINE_NAME}) {{{newline.join(self.statements[1:])}}})")
+        result = push(f"Object::Fn(Fn([](Machine& {MACHINE_NAME}) {{{newline.join(self.statements[1:])}}}, {MACHINE_NAME}))")
         
         if self.owner:
             result = str(AssignIndex([Index([load(ScopedName(["self"])), self.statements[0]]), result]))
@@ -31,3 +31,12 @@ class Function(Token):
             result += store(self.statements[0])
 
         return result
+
+
+class LambdaFunction(Token):
+    def setup(self, *args):
+        self.statements = args
+
+    def parse(self):
+        newline = '\n'
+        return push(f"Object::Fn(Fn([](Machine& {MACHINE_NAME}) {{{self.statements[0]};{newline.join(self.statements[1:])}}}, {MACHINE_NAME}))")

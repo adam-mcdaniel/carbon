@@ -17,7 +17,6 @@ class DotIndex(Token):
         self.index = args[1]
 
     def parse(self):
-        # return self.value + ";\n" + str(ScopedName([self.index])) + f";{MACHINE_NAME}.index();"
         return self.value + ";\n" + str(ScopedName([self.index])) + f";{MACHINE_NAME}.index();"
 
 

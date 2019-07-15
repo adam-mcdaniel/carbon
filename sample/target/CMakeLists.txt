@@ -7,6 +7,7 @@ include(ExternalProject)
 set(EXTERNAL_INSTALL_LOCATION ${CMAKE_BINARY_DIR}/external)
 ExternalProject_Add(dragon
   GIT_REPOSITORY    https://github.com/adam-mcdaniel/dragon
+  GIT_TAG origin/feature/closures
   CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
 )
 
